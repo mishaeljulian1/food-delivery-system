@@ -1,0 +1,17 @@
+<section class="page">
+  <h2>Order Status</h2>
+  <p class="hint">UI placeholder. Use the button to step through the mock timeline.</p>
+
+  <div class="timeline">
+    <div class="step" *ngFor="let step of steps; let i = index" [ngClass]="{ active: i <= currentIndex }">
+      <div class="dot"></div>
+      <span>{{ step }}</span>
+    </div>
+  </div>
+
+  <button class="btn" (click)="next()" [disabled]="currentIndex === steps.length - 1">Next Status</button>
+  <div class="actions">
+    <a routerLink="/restaurants" class="link">Back to restaurants</a>
+    <a routerLink="/cart" class="link">View cart</a>
+  </div>
+</section>

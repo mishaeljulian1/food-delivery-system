@@ -1,0 +1,71 @@
+<section class="page" *ngIf="restaurant; else notFound">
+  <div class="hero">
+    <div>
+      <h2>{{ restaurant.name }}</h2>
+      <p>{{ restaurant.address }}</p>
+      <div class="meta">
+        <span>{{ restaurant.deliveryTimeMins }} mins</span>
+        <span>•</span>
+        <span>₹{{ restaurant.priceForTwo }} for two</span>
+      </div>
+    </div>
+    <div class="rating" [ngClass]="restaurant.isPureVeg ? 'veg' : ''">
+      {{ restaurant.rating }}
+    </div>
+  </div>
+
+  <div class="layout">
+    <aside class="categories" *ngIf="categories.length">
+      <button
+        *ngFor="let cat of categories"
+        (click)="setCategory(cat)"
+        [ngClass]="{ active: selectedCategory === cat }"
+      >
+        {{ cat }}
+      </button>
+    </aside>
+
+    <div class="menu">
+      <article class="item" *ngFor="let item of filteredItems">
+        <div class="info">
+          <div class="title-row">
+            <span class="veg-dot" [ngStyle]="{ backgroundColor: vegColor(item.foodType) }"></span>
+            <div>
+              <h3>{{ item.name }}</h3>
+              <p class="desc">{{ item.description }}</p>
+              <div class="price">₹{{ item.price }}</div>
+              <div class="tags">
+                <span class="tag" *ngIf="item.isBestSeller" [ngClass]="'tag-hot'">Bestseller</span>
+                <span class="tag" *ngIf="item.spiceLevel">{{ item.spiceLevel }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="actions">
+          <div class="photo">
+            <img
+              [src]="item.imageUrl || fallbackImage"
+              (error)="onItemImgError($event)"
+              [attr.alt]="item.name"
+              loading="lazy"
+            />
+          </div>
+          <div class="cart-cta">
+            <button class="btn" *ngIf="quantity(item.id) === 0" (click)="add(item)">Add</button>
+            <div class="qty" *ngIf="quantity(item.id) > 0">
+              <button (click)="decrease(item)">-</button>
+              <span>{{ quantity(item.id) }}</span>
+              <button (click)="increase(item)">+</button>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<ng-template #notFound>
+  <div class="page">
+    <p class="empty">Restaurant not found.</p>
+  </div>
+</ng-template>

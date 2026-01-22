@@ -1,0 +1,70 @@
+.page {
+  padding: 1.5rem;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.block {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+}
+
+.address-box {
+  border: 1px dashed #ff7043;
+  padding: 0.75rem;
+  border-radius: 10px;
+  background: #fff7f0;
+}
+
+.address-box p {
+  margin: 0 0 0.2rem;
+}
+
+.payment-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.payment-options button {
+  padding: 0.65rem;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.payment-options button.active {
+  border-color: #ff5200;
+  background: #ffede0;
+  color: #d35400;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  color: #444;
+  margin-bottom: 0.35rem;
+}
+
+.total {
+  font-weight: 800;
+}
+
+.btn {
+  margin-top: 0.75rem;
+  width: 100%;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #ff5200, #ff7043);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}

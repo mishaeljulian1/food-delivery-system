@@ -1,0 +1,35 @@
+<section class="page">
+  <h2 class="section-title">Popular in Bengaluru</h2>
+  <div class="grid" *ngIf="restaurants.length; else emptyState">
+    <article class="card" *ngFor="let restaurant of restaurants" (click)="viewMenu(restaurant.id)">
+      <div class="image">
+        <img
+          [src]="restaurant.imageUrl || fallbackImage"
+          (error)="onRestaurantImgError($event)"
+          [attr.alt]="restaurant.name"
+          loading="lazy"
+        />
+      </div>
+      <div class="card-body">
+        <div class="name-row">
+          <h3>{{ restaurant.name }}</h3>
+          <span class="rating" [ngClass]="ratingClass(restaurant.rating)">{{ restaurant.rating }}</span>
+        </div>
+        <p class="cuisines">{{ restaurant.cuisines.join(', ') }}</p>
+        <div class="meta">
+          <span>{{ restaurant.deliveryTimeMins }} mins</span>
+          <span>•</span>
+          <span>{{ restaurant.distanceKm }} km</span>
+          <span>•</span>
+          <span>₹{{ restaurant.priceForTwo }} for two</span>
+        </div>
+        <div class="offer" *ngIf="restaurant.offers" [ngStyle]="{ background: '#fff3e0', color: '#d35400' }">
+          {{ restaurant.offers }}
+        </div>
+      </div>
+    </article>
+  </div>
+  <ng-template #emptyState>
+    <p class="empty">No restaurants available.</p>
+  </ng-template>
+</section>

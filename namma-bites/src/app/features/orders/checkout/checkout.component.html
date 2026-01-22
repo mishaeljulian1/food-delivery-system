@@ -1,0 +1,31 @@
+<section class="page">
+  <h2>Checkout</h2>
+  <div class="layout">
+    <div class="block">
+      <h3>Delivery Address</h3>
+      <div class="address-box">
+        <p>John Doe</p>
+        <p>221B Baker Street, Bengaluru - 560001</p>
+        <p>+91 98765 43210</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Payment Method</h3>
+      <div class="payment-options">
+        <button [ngClass]="{ active: paymentMethod === 'COD' }" (click)="selectPayment('COD')">Cash on Delivery</button>
+        <button [ngClass]="{ active: paymentMethod === 'UPI' }" (click)="selectPayment('UPI')">UPI</button>
+        <button [ngClass]="{ active: paymentMethod === 'CARD' }" (click)="selectPayment('CARD')">Card</button>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Order Summary</h3>
+      <div class="row"><span>Subtotal</span><span>₹{{ subtotal }}</span></div>
+      <div class="row"><span>Delivery</span><span>₹{{ delivery }}</span></div>
+      <div class="row"><span>Taxes</span><span>₹{{ taxes }}</span></div>
+      <div class="row total"><span>Total</span><span>₹{{ total }}</span></div>
+      <button class="btn" (click)="placeOrder()">Place Order</button>
+    </div>
+  </div>
+</section>

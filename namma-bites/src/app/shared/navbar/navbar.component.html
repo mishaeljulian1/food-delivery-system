@@ -1,0 +1,10 @@
+<header class="navbar">
+  <div class="brand" routerLink="/restaurants">Namma Bites</div>
+  <nav class="links">
+    <a routerLink="/restaurants" routerLinkActive="active">Restaurants</a>
+    <a routerLink="/cart" routerLinkActive="active" class="cart-link">
+      Cart <span class="badge" [ngClass]="{ filled: cartCount > 0 }">{{ cartCount }}</span>
+    </a>
+    <a routerLink="/order-status/last" routerLinkActive="active">Orders</a>
+  </nav>
+</header>

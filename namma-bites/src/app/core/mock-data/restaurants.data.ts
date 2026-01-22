@@ -1,0 +1,135 @@
+import { CuisineType } from '../models/enums';
+import { Restaurant } from '../models/restaurant.model';
+
+export const RESTAURANTS: Restaurant[] = [
+  {
+    id: 1,
+    name: 'Meghana Foods – Koramangala',
+    rating: 4.5,
+    cuisines: [CuisineType.Andhra, CuisineType.Biryani, CuisineType.NorthIndian],
+    priceForTwo: 600,
+    deliveryTimeMins: 35,
+    distanceKm: 3.2,
+    imageUrl: 'assets/images/restaurants/meghana foods.png',
+    address: '118, Koramangala 5th Block, Bengaluru, Karnataka 560095',
+    isPureVeg: false,
+    offers: '50% OFF up to ₹120'
+  },
+  {
+    id: 2,
+    name: 'Nagarjuna – Residency Road',
+    rating: 4.4,
+    cuisines: [CuisineType.Andhra, CuisineType.Biryani],
+    priceForTwo: 700,
+    deliveryTimeMins: 30,
+    distanceKm: 2.8,
+    imageUrl: 'assets/images/restaurants/nagarjuna.jpg',
+    address: '44/1, Residency Road, Bengaluru, Karnataka 560025',
+    isPureVeg: false,
+    offers: 'Free delivery on orders above ₹299'
+  },
+  {
+    id: 3,
+    name: 'Empire Restaurant – Church Street',
+    rating: 4.1,
+    cuisines: [CuisineType.NorthIndian, CuisineType.Biryani, CuisineType.Grill],
+    priceForTwo: 500,
+    deliveryTimeMins: 32,
+    distanceKm: 3.5,
+    imageUrl: 'assets/images/restaurants/empire.png',
+    address: 'Empire Building, Church Street, Bengaluru, Karnataka 560001',
+    isPureVeg: false,
+    offers: '20% OFF up to ₹80'
+  },
+  {
+    id: 4,
+    name: 'Truffles – Indiranagar',
+    rating: 4.6,
+    cuisines: [CuisineType.FastFood, CuisineType.Continental, CuisineType.Cafe],
+    priceForTwo: 800,
+    deliveryTimeMins: 28,
+    distanceKm: 4.6,
+    imageUrl: 'assets/images/restaurants/truffles.png',
+    address: '28, 4th B Cross Rd, Indiranagar, Bengaluru, Karnataka 560038',
+    isPureVeg: false,
+    offers: 'Flat ₹125 OFF on ₹399'
+  },
+  {
+    id: 5,
+    name: 'MTR – Lalbagh Road',
+    rating: 4.7,
+    cuisines: [CuisineType.SouthIndian, CuisineType.Desserts],
+    priceForTwo: 400,
+    deliveryTimeMins: 25,
+    distanceKm: 2.5,
+    imageUrl: 'assets/images/restaurants/mtr.png',
+    address: '14, Lalbagh Rd, Sampangi Rama Nagar, Bengaluru, Karnataka 560027',
+    isPureVeg: true,
+    offers: '15% OFF up to ₹60'
+  },
+  {
+    id: 6,
+    name: 'CTR Sri Sagar – Malleshwaram',
+    rating: 4.6,
+    cuisines: [CuisineType.SouthIndian, CuisineType.Cafe],
+    priceForTwo: 300,
+    deliveryTimeMins: 26,
+    distanceKm: 5.4,
+    imageUrl: 'assets/images/restaurants/ctr shri sagar.jpg',
+    address: '7th Cross Rd, Malleshwaram, Bengaluru, Karnataka 560003',
+    isPureVeg: true,
+    offers: 'Free delivery'
+  },
+  {
+    id: 7,
+    name: 'Brahmin’s Coffee Bar – Basavanagudi',
+    rating: 4.8,
+    cuisines: [CuisineType.SouthIndian, CuisineType.Cafe],
+    priceForTwo: 200,
+    deliveryTimeMins: 20,
+    distanceKm: 3.9,
+    imageUrl: 'assets/images/restaurants/Brahmins-1.jpg',
+    address: 'Pampa Mahakavi Rd, Basavanagudi, Bengaluru, Karnataka 560004',
+    isPureVeg: true,
+    offers: 'Buy 1 Get 1 on filter coffee'
+  },
+  {
+    id: 8,
+    name: 'Vidyarthi Bhavan – Gandhi Bazaar',
+    rating: 4.6,
+    cuisines: [CuisineType.SouthIndian, CuisineType.StreetFood],
+    priceForTwo: 250,
+    deliveryTimeMins: 27,
+    distanceKm: 4.1,
+    imageUrl: 'assets/images/restaurants/vidyarthi.jpg',
+    address: '32, Gandhi Bazaar Main Rd, Basavanagudi, Bengaluru, Karnataka 560004',
+    isPureVeg: true,
+    offers: '30% OFF up to ₹75'
+  },
+  {
+    id: 9,
+    name: 'Anand Sweets & Savouries – Commercial Street',
+    rating: 4.5,
+    cuisines: [CuisineType.Desserts, CuisineType.Bakery, CuisineType.NorthIndian],
+    priceForTwo: 600,
+    deliveryTimeMins: 24,
+    distanceKm: 3.3,
+    imageUrl: 'assets/images/restaurants/anand.png',
+    address: '8, Commercial Street, Shivajinagar, Bengaluru, Karnataka 560001',
+    isPureVeg: true,
+    offers: 'Free delivery above ₹349'
+  },
+  {
+    id: 10,
+    name: 'Leon Grill – HSR Layout',
+    rating: 4.3,
+    cuisines: [CuisineType.Grill, CuisineType.FastFood, CuisineType.Continental],
+    priceForTwo: 550,
+    deliveryTimeMins: 29,
+    distanceKm: 6.0,
+    imageUrl: 'assets/images/restaurants/leon grill.png',
+    address: '27th Main Rd, Sector 2, HSR Layout, Bengaluru, Karnataka 560102',
+    isPureVeg: false,
+    offers: '40% OFF up to ₹100'
+  }
+];
