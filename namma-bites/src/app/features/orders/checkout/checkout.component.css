@@ -1,70 +1,97 @@
 .page {
-  padding: 1.5rem;
+  padding: 32px 24px;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
-.layout {
+.page-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0 0 28px;
+  color: #1a237e;
+}
+
+.checkout-layout {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1rem;
+  grid-template-columns: 1fr 340px;
+  gap: 24px;
+  align-items: flex-start;
 }
 
-.block {
-  background: #fff;
-  border-radius: 12px;
-  padding: 1rem;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+/* Form */
+.form-card {
+  border-radius: 12px !important;
 }
 
-.address-box {
-  border: 1px dashed #ff7043;
-  padding: 0.75rem;
-  border-radius: 10px;
-  background: #fff7f0;
+.form-card mat-card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1rem;
 }
 
-.address-box p {
-  margin: 0 0 0.2rem;
-}
-
-.payment-options {
+.form-content {
+  padding: 20px 20px 8px !important;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 4px;
 }
 
-.payment-options button {
-  padding: 0.65rem;
-  border: 1px solid #eee;
-  border-radius: 10px;
-  background: #fff;
-  cursor: pointer;
+.full-width {
+  width: 100%;
 }
 
-.payment-options button.active {
-  border-color: #ff5200;
-  background: #ffede0;
-  color: #d35400;
+/* Summary */
+.summary-card {
+  border-radius: 12px !important;
+  position: sticky;
+  top: 80px;
 }
 
-.row {
+.summary-card mat-card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1rem;
+}
+
+.summary-card mat-card-content {
+  padding: 16px 20px !important;
+}
+
+.bill-row {
   display: flex;
   justify-content: space-between;
-  color: #444;
-  margin-bottom: 0.35rem;
+  padding: 9px 0;
+  font-size: 14px;
+  color: #555;
 }
 
-.total {
-  font-weight: 800;
+.divider {
+  margin: 8px 0 !important;
 }
 
-.btn {
-  margin-top: 0.75rem;
-  width: 100%;
-  padding: 0.8rem;
-  border: none;
-  border-radius: 12px;
-  background: linear-gradient(90deg, #ff5200, #ff7043);
-  color: #fff;
+.total-row {
   font-weight: 700;
-  cursor: pointer;
+  font-size: 16px;
+  color: #1a237e;
+}
+
+.total-amt {
+  font-size: 18px;
+  color: #3f51b5;
+}
+
+.place-btn {
+  width: 100%;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .checkout-layout {
+    grid-template-columns: 1fr;
+  }
 }

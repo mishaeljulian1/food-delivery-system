@@ -2,19 +2,34 @@ import { Injectable } from '@angular/core';
 import { Observable, interval, of } from 'rxjs';
 import { finalize, map, takeWhile, tap } from 'rxjs/operators';
 import { Order } from '../models/order.model';
-import { OrderStatus } from '../models/enums';
+import { OrderStatus, PaymentMethod } from '../models/enums';
+import { CartItem } from '../models/cart-item.model';
+import { UserProfile } from '../models/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class OrderService {
   private orders: Order[] = [];
   private lastOrder: Order | null = null;
 
-  placeOrder(order: Order): Observable<Order> {
+  placeOrder(data: {
+    user: UserProfile;
+    items: CartItem[];
+    totalAmount: number;
+    paymentMethod: PaymentMethod;
+    deliveryAddress: string;
+  }): Observable<Order> {
+    const restaurantId = data.items[0]?.item.restaurantId ?? 0;
     const nextId = this.orders.length + 1;
     const placedOrder: Order = {
-      ...order,
       id: nextId,
+      user: data.user,
+      restaurantId,
+      items: data.items,
+      totalAmount: data.totalAmount,
+      paymentMethod: data.paymentMethod,
+      status: OrderStatus.Placed,
       placedAt: new Date().toISOString(),
+      deliveryAddress: data.deliveryAddress
     };
     this.orders.push(placedOrder);
     this.lastOrder = placedOrder;
@@ -26,7 +41,7 @@ export class OrderService {
   }
 
   getOrderById(orderId: number): Order | null {
-    return this.orders.find((o) => o.id === orderId) ?? null;
+    return this.orders.find(o => o.id === orderId) ?? null;
   }
 
   updateStatusMockFlow(orderId: number): Observable<OrderStatus> {
@@ -40,14 +55,14 @@ export class OrderService {
       OrderStatus.Confirmed,
       OrderStatus.Preparing,
       OrderStatus.OutForDelivery,
-      OrderStatus.Delivered,
+      OrderStatus.Delivered
     ];
     const startIndex = Math.max(statuses.indexOf(order.status), 0);
 
-    return interval(1500).pipe(
-      map((tick) => statuses[startIndex + tick] ?? statuses[statuses.length - 1]),
+    return interval(4000).pipe(
+      map(tick => statuses[startIndex + tick] ?? statuses[statuses.length - 1]),
       takeWhile((_, index) => startIndex + index < statuses.length),
-      tap((status) => {
+      tap(status => {
         order.status = status;
         this.lastOrder = order;
       }),

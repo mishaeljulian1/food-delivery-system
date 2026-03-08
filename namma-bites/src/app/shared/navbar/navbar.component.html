@@ -1,10 +1,28 @@
-<header class="navbar">
-  <div class="brand" routerLink="/restaurants">Namma Bites</div>
-  <nav class="links">
-    <a routerLink="/restaurants" routerLinkActive="active">Restaurants</a>
-    <a routerLink="/cart" routerLinkActive="active" class="cart-link">
-      Cart <span class="badge" [ngClass]="{ filled: cartCount > 0 }">{{ cartCount }}</span>
+<mat-toolbar color="primary" class="navbar">
+  <a routerLink="/restaurants" class="brand">
+    <mat-icon>restaurant</mat-icon>
+    <span>Namma Bites</span>
+  </a>
+
+  <span class="spacer"></span>
+
+  <nav class="nav-links">
+    <a mat-button routerLink="/restaurants" routerLinkActive="active-link">
+      <mat-icon>store</mat-icon> Restaurants
     </a>
-    <a routerLink="/order-status/last" routerLinkActive="active">Orders</a>
+
+    <a mat-button routerLink="/cart" routerLinkActive="active-link" class="cart-btn">
+      <mat-icon
+        [matBadge]="(count$ | async) || null"
+        matBadgeColor="warn"
+        matBadgeSize="small"
+        [matBadgeHidden]="(count$ | async) === 0"
+      >shopping_cart</mat-icon>
+      Cart
+    </a>
+
+    <a mat-button routerLink="/order-status/last" routerLinkActive="active-link">
+      <mat-icon>receipt_long</mat-icon> Orders
+    </a>
   </nav>
-</header>
+</mat-toolbar>

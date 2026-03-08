@@ -1,31 +1,90 @@
 <section class="page">
-  <h2>Checkout</h2>
-  <div class="layout">
-    <div class="block">
-      <h3>Delivery Address</h3>
-      <div class="address-box">
-        <p>John Doe</p>
-        <p>221B Baker Street, Bengaluru - 560001</p>
-        <p>+91 98765 43210</p>
-      </div>
+  <h1 class="page-title">
+    <mat-icon>receipt_long</mat-icon> Checkout
+  </h1>
+
+  <div class="checkout-layout">
+
+    <!-- Left: Form -->
+    <div class="form-col">
+      <mat-card class="form-card" [formGroup]="checkoutForm">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>person_pin</mat-icon> Delivery Details
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="form-content">
+
+          <!-- Name -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Full Name</mat-label>
+            <input matInput formControlName="name" placeholder="e.g. Priya Sharma" />
+            <mat-icon matSuffix>person</mat-icon>
+            <mat-error *ngIf="nameControl.hasError('required')">Name is required</mat-error>
+            <mat-error *ngIf="nameControl.hasError('minlength')">Minimum 3 characters</mat-error>
+          </mat-form-field>
+
+          <!-- Phone -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Phone Number</mat-label>
+            <input matInput formControlName="phone" placeholder="10-digit mobile number" maxlength="10" />
+            <mat-icon matSuffix>phone</mat-icon>
+            <mat-error *ngIf="phoneControl.hasError('required')">Phone number is required</mat-error>
+            <mat-error *ngIf="phoneControl.hasError('pattern')">Enter a valid 10-digit Indian mobile number</mat-error>
+          </mat-form-field>
+
+          <!-- Address -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Delivery Address</mat-label>
+            <textarea matInput formControlName="address" placeholder="House no., Street, Area, City"
+              rows="3"></textarea>
+            <mat-icon matSuffix>location_on</mat-icon>
+            <mat-error *ngIf="addressControl.hasError('required')">Address is required</mat-error>
+            <mat-error *ngIf="addressControl.hasError('minlength')">Please provide a full address (min 10
+              chars)</mat-error>
+          </mat-form-field>
+
+          <!-- Payment Method -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Payment Method</mat-label>
+            <mat-select formControlName="paymentMethod">
+              <mat-option *ngFor="let opt of paymentOptions" [value]="opt.value">
+                {{ opt.label }}
+              </mat-option>
+            </mat-select>
+            <mat-icon matSuffix>payment</mat-icon>
+            <mat-error>Please select a payment method</mat-error>
+          </mat-form-field>
+
+        </mat-card-content>
+      </mat-card>
     </div>
 
-    <div class="block">
-      <h3>Payment Method</h3>
-      <div class="payment-options">
-        <button [ngClass]="{ active: paymentMethod === 'COD' }" (click)="selectPayment('COD')">Cash on Delivery</button>
-        <button [ngClass]="{ active: paymentMethod === 'UPI' }" (click)="selectPayment('UPI')">UPI</button>
-        <button [ngClass]="{ active: paymentMethod === 'CARD' }" (click)="selectPayment('CARD')">Card</button>
-      </div>
-    </div>
-
-    <div class="block">
-      <h3>Order Summary</h3>
-      <div class="row"><span>Subtotal</span><span>₹{{ subtotal }}</span></div>
-      <div class="row"><span>Delivery</span><span>₹{{ delivery }}</span></div>
-      <div class="row"><span>Taxes</span><span>₹{{ taxes }}</span></div>
-      <div class="row total"><span>Total</span><span>₹{{ total }}</span></div>
-      <button class="btn" (click)="placeOrder()">Place Order</button>
-    </div>
+    <!-- Right: Summary + Place Order -->
+    <aside class="summary-col">
+      <mat-card class="summary-card">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>summarize</mat-icon> Order Summary
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="bill-row"><span>Subtotal</span><span>₹{{ subtotal }}</span></div>
+          <div class="bill-row"><span>Delivery</span><span>₹{{ delivery }}</span></div>
+          <div class="bill-row"><span>Taxes (5%)</span><span>₹{{ taxes }}</span></div>
+          <mat-divider class="divider"></mat-divider>
+          <div class="bill-row total-row">
+            <span>Total</span>
+            <span class="total-amt">₹{{ total }}</span>
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" class="place-btn" [disabled]="isSubmitting" (click)="placeOrder()">
+            <mat-icon>{{ isSubmitting ? 'hourglass_empty' : 'check_circle' }}</mat-icon>
+            {{ isSubmitting ? 'Placing Order…' : 'Place Order' }}
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </aside>
   </div>
 </section>

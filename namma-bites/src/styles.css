@@ -1,18 +1,41 @@
+/* Angular Material prebuilt theme is loaded via angular.json */
+
 * {
 	box-sizing: border-box;
 }
 
+html,
 body {
+	height: 100%;
 	margin: 0;
-	font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-	background: #f7f7f9;
+}
+
+body {
+	font-family: Roboto, 'Segoe UI', system-ui, -apple-system, sans-serif;
+	background: #f4f6fb;
 	color: #1f1f1f;
 }
 
 a {
 	color: inherit;
+	text-decoration: none;
 }
 
 button {
 	font-family: inherit;
+}
+
+/* Snackbar success panel class */
+.snack-success .mdc-snackbar__surface {
+	background: #2e7d32 !important;
+}
+
+/* Smooth scrolling */
+html {
+	scroll-behavior: smooth;
+}
+
+/* Page wrapper padding below sticky navbar */
+.main-content {
+	padding-top: 0;
 }

@@ -1,37 +1,80 @@
 <section class="page">
-  <h2>Your Cart</h2>
+  <h1 class="page-title">
+    <mat-icon>shopping_cart</mat-icon> Your Cart
+  </h1>
 
-  <div *ngIf="items.length; else emptyCart" class="cart-layout">
-    <div class="items">
-      <article class="item" *ngFor="let cart of items">
-        <div>
-          <h3>{{ cart.item.name }}</h3>
-          <p class="desc">₹{{ cart.item.price }} • {{ cart.item.category }}</p>
-          <div class="qty">
-            <button (click)="decrease(cart.item.id)">-</button>
-            <span>{{ cart.quantity }}</span>
-            <button (click)="increase(cart.item.id)">+</button>
-            <button class="remove" (click)="remove(cart.item.id)">Remove</button>
-          </div>
-        </div>
-        <div class="price">₹{{ cart.total }}</div>
-      </article>
+  <ng-container *ngIf="(items$ | async) as cartItems">
+    <div *ngIf="cartItems.length; else emptyCart" class="cart-layout">
+
+      <!-- Cart Items -->
+      <div class="items-col">
+        <mat-card class="item-card" *ngFor="let cart of cartItems">
+          <mat-card-content class="item-content">
+            <div class="item-name-col">
+              <h3>{{ cart.item.name }}</h3>
+              <p class="item-meta">₹{{ cart.item.price }} &bull; {{ cart.item.category }}</p>
+            </div>
+
+            <div class="item-controls">
+              <div class="qty-stepper">
+                <button mat-icon-button color="warn" (click)="decrease(cart.item.id)">
+                  <mat-icon>{{ cart.quantity === 1 ? 'delete' : 'remove' }}</mat-icon>
+                </button>
+                <span class="qty-num">{{ cart.quantity }}</span>
+                <button mat-icon-button color="primary" (click)="increase(cart.item.id)">
+                  <mat-icon>add</mat-icon>
+                </button>
+              </div>
+
+              <div class="item-total">₹{{ cart.total }}</div>
+
+              <button mat-icon-button color="warn" (click)="remove(cart.item.id, cart.item.name)" class="remove-btn">
+                <mat-icon>delete_outline</mat-icon>
+              </button>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <!-- Bill Summary -->
+      <aside class="summary-col">
+        <mat-card class="summary-card">
+          <mat-card-header>
+            <mat-card-title>Bill Details</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="bill-row"><span>Subtotal</span><span>₹{{ subtotal }}</span></div>
+            <div class="bill-row"><span>Delivery fee</span><span>₹{{ deliveryFee }}</span></div>
+            <div class="bill-row"><span>Taxes & Charges (5%)</span><span>₹{{ taxes }}</span></div>
+            <mat-divider class="divider"></mat-divider>
+            <div class="bill-row total-row">
+              <span>To Pay</span>
+              <span class="total-amt">₹{{ grandTotal }}</span>
+            </div>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-raised-button color="primary" class="checkout-btn" (click)="goToCheckout()">
+              <mat-icon>arrow_forward</mat-icon>
+              Proceed to Checkout
+            </button>
+          </mat-card-actions>
+        </mat-card>
+
+        <a routerLink="/restaurants" mat-stroked-button class="more-btn">
+          <mat-icon>add</mat-icon> Add More Items
+        </a>
+      </aside>
     </div>
-
-    <aside class="summary">
-      <h3>Bill Details</h3>
-      <div class="row"><span>Subtotal</span><span>₹{{ subtotal }}</span></div>
-      <div class="row"><span>Delivery</span><span>₹{{ deliveryFee }}</span></div>
-      <div class="row"><span>Taxes</span><span>₹{{ taxes }}</span></div>
-      <div class="row total"><span>To Pay</span><span>₹{{ grandTotal }}</span></div>
-      <button class="btn" (click)="goToCheckout()">Proceed to Checkout</button>
-    </aside>
-  </div>
+  </ng-container>
 
   <ng-template #emptyCart>
-    <div class="empty">
-      <p>Your cart is empty.</p>
-      <a routerLink="/restaurants" class="btn ghost">Browse restaurants</a>
+    <div class="empty-state">
+      <mat-icon class="empty-icon">shopping_cart_checkout</mat-icon>
+      <h3>Your cart is empty</h3>
+      <p>Add some delicious food to get started!</p>
+      <a mat-raised-button color="primary" routerLink="/restaurants">
+        <mat-icon>store</mat-icon> Browse Restaurants
+      </a>
     </div>
   </ng-template>
 </section>

@@ -1,17 +1,109 @@
 <section class="page">
-  <h2>Order Status</h2>
-  <p class="hint">UI placeholder. Use the button to step through the mock timeline.</p>
 
-  <div class="timeline">
-    <div class="step" *ngFor="let step of steps; let i = index" [ngClass]="{ active: i <= currentIndex }">
-      <div class="dot"></div>
-      <span>{{ step }}</span>
+  <!-- No Order State -->
+  <div *ngIf="!order" class="no-order">
+    <mat-icon class="no-order-icon">receipt_long</mat-icon>
+    <h2>No Active Order</h2>
+    <p>Place an order first to track it here.</p>
+    <a mat-raised-button color="primary" routerLink="/restaurants">
+      <mat-icon>store</mat-icon> Browse Restaurants
+    </a>
+  </div>
+
+  <!-- Order Tracking -->
+  <ng-container *ngIf="order">
+    <div class="header-row">
+      <h1 class="page-title">
+        <mat-icon>delivery_dining</mat-icon> Order #{{ order.id }}
+      </h1>
+      <span class="placed-time">Placed at {{ order.placedAt | date:'shortTime' }}</span>
     </div>
-  </div>
 
-  <button class="btn" (click)="next()" [disabled]="currentIndex === steps.length - 1">Next Status</button>
-  <div class="actions">
-    <a routerLink="/restaurants" class="link">Back to restaurants</a>
-    <a routerLink="/cart" class="link">View cart</a>
-  </div>
+    <!-- Progress Bar -->
+    <mat-card class="progress-card">
+      <mat-card-content>
+        <div class="progress-label">
+          <span class="status-label">{{ currentStatus | titlecase }}</span>
+          <span class="pct">{{ progressPercent }}%</span>
+        </div>
+        <mat-progress-bar mode="determinate" [value]="progressPercent" color="{{ isCompleted ? 'accent' : 'primary' }}"
+          class="progress-bar"></mat-progress-bar>
+        <p class="progress-hint" *ngIf="!isCompleted">
+          <mat-icon class="spin-icon">sync</mat-icon> Updating every 4 seconds…
+        </p>
+        <p class="progress-hint completed" *ngIf="isCompleted">
+          <mat-icon>check_circle</mat-icon> Your order has been delivered!
+        </p>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Timeline -->
+    <mat-card class="timeline-card">
+      <mat-card-header>
+        <mat-card-title>Order Timeline</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="timeline">
+          <div *ngFor="let step of steps; let last = last" class="timeline-step" [class.active]="isStepActive(step)"
+            [class.current]="isCurrentStep(step)">
+            <div class="step-icon-col">
+              <div class="step-circle">
+                <mat-icon>{{ step.icon }}</mat-icon>
+              </div>
+              <div class="connector" *ngIf="!last"></div>
+            </div>
+            <div class="step-info">
+              <span class="step-label">{{ step.label }}</span>
+              <span class="step-status-dot" *ngIf="isCurrentStep(step) && !isCompleted">● In Progress</span>
+              <span class="step-done" *ngIf="isStepActive(step) && !isCurrentStep(step)">✓ Done</span>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Delivery & Items -->
+    <div class="details-grid">
+      <mat-card class="detail-card">
+        <mat-card-header>
+          <mat-card-title><mat-icon>location_on</mat-icon> Delivery Address</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ order.user.fullName }}</p>
+          <p>{{ order.deliveryAddress }}</p>
+          <p>{{ order.user.phone }}</p>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="detail-card">
+        <mat-card-header>
+          <mat-card-title><mat-icon>receipt</mat-icon> Order Summary</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="mini-item" *ngFor="let ci of order.items">
+            <span>{{ ci.item.name }} × {{ ci.quantity }}</span>
+            <span>₹{{ ci.total }}</span>
+          </div>
+          <mat-divider class="divider"></mat-divider>
+          <div class="mini-total">
+            <span>Total</span>
+            <span>₹{{ order.totalAmount }}</span>
+          </div>
+          <p class="payment-method">
+            <mat-icon class="pm-icon">payment</mat-icon> {{ order.paymentMethod }}
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- Actions -->
+    <div class="actions">
+      <a mat-raised-button color="primary" routerLink="/restaurants">
+        <mat-icon>add</mat-icon> Order Again
+      </a>
+      <a mat-stroked-button routerLink="/cart">
+        <mat-icon>shopping_cart</mat-icon> View Cart
+      </a>
+    </div>
+  </ng-container>
 </section>
